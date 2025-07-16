@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Testing page</title>
+  <link rel="stylesheet" href="styling.css" type="text/css">
+  <script src="Cookies.js"></script>
+  <script src="Geolocation.js"></script>
+  <script src="API.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+  <meta name="theme-color" content="teal"/>
+  <link rel="icon" href="Logo.png" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="Logo.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="teal">
+  <meta name="apple-mobile-web-app-title" content="Simple app">
+  <meta name="msapplication-TileImage" content="logo.png">
+  <meta name="msapplication-TileColor" content="#008080">
+</head>
+<body>
+<div class="header">
+  <a href="index.html">Index</a>
+  <a href="app.html"></a>
+  <h1><img src="Logo.png" height="170" width="170"> <!-- AI generated image --></h1>
+</div>
+<h2>Test Facilities</h2>
+<button id="testingCookies">Check Cookies</button>
+<button id="testingGeolocation">Check Location</button>
+<button id="testingAPI">Check API</button>
+<div id="output"></div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('testingCookies').addEventListener('click', function () {
+      setCookie('testCookies', 'Testing Cookies Value', 1);
+      document.getElementById('output').innerText = `Cookies set successfully. Value: "${getCookie('testCookies')}"`;
+    });
+    document.getElementById('testingGeolocation').addEventListener('click', async function() {
+      try {
+        let pos = await getPlayerLocation();
+        document.getElementById('output').innerText = `geolocation Success: Latitude: ${pos.coords.latitude}, Longitude: ${pos.coords.longitude}`;
+      } catch (error) {
+        document.getElementById('output').innerText = `Geolocation Error: ${error.message}`;
+      }
+    });
+    document.getElementById('testingAPI').addEventListener('click', async function() {
+      try {
+        const reply = await fetch("https://codecyprus.org/th/api/list");
+        if (!reply.ok) {
+          const errorText = await reply.text();
+          throw new Error(`HTTP Error: ${reply.status} ${reply.statusText}. Response: ${errorText}`);
+        }
+        const result = await reply.json();
+        document.getElementById('output').innerText = `API Connectivity Success: ${JSON.stringify(result, null, 2)}`;
+      } catch (error) {
+        document.getElementById('output').innerText = `API Connectivity Error:${error.message}`;
+      };
+    });
+    function cookiesInspection() {
+      setCookie("testingResults", "123", 1);
+      let result = getCookie("testingResults") === "123";
+      document.getElementById("testingResults").textContent = result ? "Pass: Cookie functions work perfectly." : "Fail: Cookie functions are not working."
+    }
+    cookiesInspection();
+  })
+</script>
+
+<!-- To check if the cookies function -->
+<h2>Testing Unit: Functioning Cookies</h2>
+<p id="testingResults"></p>
+<script>
+  function cookiesInspection() {
+    setCookie("testingResults", "123", 1);
+    let result = getCookie("testingResults") === "123";
+    document.getElementById("testingResults").textContent = result ? "Qualify: Cookie functions work." : "Disqualify: Cookie functions do not work.";
+  }
+  window.onload = cookiesInspection;
+</script>
+
+<!-- The user acceptance test plan -->
+<h2>User Acceptance Test Plan</h2>
+<table border="1" cellpadding="4">
+  <tr><th>Scenario</th><th>Steps</th><th>Expected Results</th><th>Actual Results</th></tr>
+  <tr>
+    <td>Registering new username</td>
+    <td>Entering username on index.html and submit</td>
+    <td>Redirecting to app.html, username saved by cookies</td>
+    <td>Qualify</td>
+  </tr>
+  <tr>
+    <td>Starting Sample Hunt</td>
+    <td>Clicking on the "Sample treasure hunt" button</td>
+    <td>Game session starts and questions begin to appear</td>
+    <td>Qualify</td>
+  </tr>
+  <tr>
+    <td>Answer questions</td>
+    <td>Enter answer and submit</td>
+    <td>Next question appears</td>
+    <td>Qualify</td>
+  </tr>
+  <tr>
+    <td>View leaderboard</td>
+    <td>Finish session</td>
+    <td>Leaderboard is shown</td>
+    <td>Qualify</td>
+  </tr>
+</table>
+
+<h2>Usability Assessment</h2>
+<p>-Simple navigation: starting from landing page(index.html), creating a username and getting directed to app.html for the game.</p>
+<p>-Visibility of all main actions(Starting the game, Answering questions, Skipping the questions, Viewing the results).</p>
+<p>-Clear UI, with each button designed for the considered question.</p>
+<p>-After the game ends, results with the leaderboard are shown.</p>
+
+<!-- Mobile testing notes -->
+<h2>Mobile Testing</h2>
+<p>The server used for loading the website on phone is Node.js by activating and changing the port number through CMD.</p>
+<p>If any device including pc, phone and etc want to access the website, the all need to be connected to the same wi-fi which the device with the local host is connected to.</p>
+<p>Unfortunately, since the server runs on my personal pc and shuts down after turning the pc off, accessing the website via phone is restricted.</p>
+<!-- Other features -->
+<h2>QR code scanner</h2>
+<p>After entering the app.html to play the game, a permission for accessing the camera will appear which can be used to scan QR codes and the line underneath will display the results.</p>
+<p>The QR code scanner is available only on the device that runs the code and cannot be accessed by the other devices.</p>
+
+<h2>Progressive Web Apps</h2>
+<p>The website has the simple app installment feature.(From Week18-Progressive Web Apps)</p>
+</body>
+</html>

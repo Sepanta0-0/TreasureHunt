@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home Page</title>
+  <link rel="stylesheet" href="styling.css" type="text/css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+  <meta name="theme-color" content="teal"/>
+  <link rel="icon" href="Logo.png" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="Logo.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="teal">
+  <meta name="apple-mobile-web-app-title" content="Simple app">
+  <meta name="msapplication-TileImage" content="logo.png">
+  <meta name="msapplication-TileColor" content="#008080">
+  <script src="main.js"></script>
+</head>
+<body>
+
+<div class="header">
+  <a href="index.html">Index</a>
+  <a href="app.html"></a>
+  <a href="test.html">Test</a>
+  <h1><img src="Logo.png" height="170" width="170"> <!-- AI generated image --></h1>
+</div>
+
+<h2>Treasure Hunt</h2>
+<h3>
+  Welcome to the Treasure Hunt website.
+  Discover hidden clues, solve puzzles, be the champion.
+</h3>
+<h4>Immerse yourself in a location-based scavenger hunt: answer challenges and race to the top of the leaderboard. Get started in seconds. Create your player profile below and start winning. </h4>
+
+<h4>Note: Each username can be used once. Refreshing the page and exiting the page will disable your username.</h4>
+<!-- W3Schools -> How TO - Register Form -->
+<!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_register_form -->
+<form action="app.html">
+  <h5>
+    <b><label for="username"></label></b>
+    <input type="text" name="username" placeholder="Username" id="username" required>
+    <button type="submit" class="registerbtn">Create Username</button>
+  </h5>
+</form>
+
+<h6>stay connected. Follow us for new hunt announcements.</h6>
+<a class="twitter-timeline" href="https://twitter.com/HqT_Hunt?ref_src=twsrc%5Etfw"><img src="X.png" width="50" height="50"></a>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<script src="Cookies.js"></script>
+<script>
+  document.querySelector("form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    let userName= document.getElementById("username").value;
+    setCookie("username", userName, 365);
+    window.location.href = "app.html";
+  });
+</script>
+
+</body>
+</html>

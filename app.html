@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Treasure Hunt App</title>
+    <link rel="stylesheet" href="styling.css" type="text/css">
+    <script src="Cookies.js"></script>
+    <script src="Geolocation.js"></script>
+    <script src="API.js"></script>
+    <script src="QR%20Code%20Reader/js/instascan.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+    <meta name="theme-color" content="teal"/>
+    <link rel="icon" href="Logo.png" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="Logo.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="teal">
+    <meta name="apple-mobile-web-app-title" content="Simple app">
+    <meta name="msapplication-TileImage" content="logo.png">
+    <meta name="msapplication-TileColor" content="#008080">
+    <script src="main.js"></script>
+</head>
+<body>
+<div id="status-message" style="margin-top: 10px; padding: 5px; text-align: center;"></div>
+<div class="header">
+    <a href="index.html">Index</a>
+    <a href="test.html">Test</a>
+    <h1><img src="Logo.png" height="170" width="170"> <!-- AI generated image --></h1>
+</div>
+
+<!-- Main Area -->
+<div id="selectionFromList" ></div>
+<div id="Arena" style="display: block">
+    <div id="answerChoices"></div>
+    <div id="questionPack"></div>
+    <button id="skip">Skip</button>
+</div>
+
+<!-- Displaying the results and leaderboard -->
+<div id="arenaAnswers" style="display: none">
+    <h2>Game is up!</h2>
+    <p>Your results: <span id="totalPoint"></span></p>
+    <h3>Leaderboard</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Rank</th>
+            <th>User</th>
+            <th>Point</th>
+        </tr>
+        </thead>
+        <tbody id="leaderboard"></tbody>
+    </table>
+</div>
+<script>
+    window.onload = function () {
+        checkCookie();
+        loadGameFile();
+    }
+</script>
+
+<!-- QR code scanner -->
+<!-- Week16 - Design and Usability, QR Code Scanners -->
+<video id="preview"></video>
+<div style="margin: 20px; padding: 20px; background-color: black; color: white; text-align: center;" id="content"></div>
+
+<script>
+    var opts = {
+// Whether to scan continuously for QR codes. If false, use scanner.scan() to
+// manually scan. If true, the scanner emits the "scan" event when a QR code is
+// scanned. Default true.
+        continuous: true,
+// The HTML element to use for the camera's video preview. Must be a <video>
+// element. When the camera is active, this element will have the "active" CSS
+// class, otherwise, it will have the "inactive" class. By default, an invisible
+// element will be created to host the video.
+        video: document.getElementById('preview'),
+// Whether to horizontally mirror the video preview. This is helpful when trying to
+// scan a QR code with a user-facing camera. Default true.
+        mirror: true,
+// Whether to include the scanned image data as part of the scan result. See the
+// "scan" event for image format details. Default false.
+        captureImage: false,
+// Only applies to continuous mode. Whether to actively scan when the tab is not
+// active.
+// When false, this reduces CPU usage when the tab is not active. Default true.
+        backgroundScan: true,
+// Only applies to continuous mode. The period, in milliseconds, before the same QR
+// code will be recognized in succession. Default 5000 (5 seconds).
+        refractoryPeriod: 5000,
+// Only applies to continuous mode. The period, in rendered frames, between scans. A
+// lower scan period increases CPU usage but makes scan response faster.
+// Default 1 (i.e. analyze every frame).
+        scanPeriod: 1
+    };
+    var scanner = new Instascan.Scanner(opts);
+    Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+            scanner.start(cameras[0]);
+        } else {
+            console.error('No cameras found.');
+            alert("No cameras found.");
+        }
+    }).catch(function (e) {
+        console.error(e);
+    });
+    scanner.addListener('scan', function (content) {
+        console.log(content);
+        document.getElementById("content").innerHTML = content;
+    });
+</script>
+
+</body>

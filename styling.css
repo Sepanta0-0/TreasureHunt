@@ -1,0 +1,64 @@
+body {
+    background: #AA8F76;
+}
+.header {
+    padding: 20px;
+    text-align: center;
+    background-color: #082C38;
+    color: white;
+    font-size: 5px;
+    height: 170px;
+}
+h1 {
+    text-align: center;
+}
+h2 {
+    font-size: 60px;
+    color: white;
+    text-align: center;
+    font-style: oblique;
+}
+h3 {
+    color: white;
+    text-align: center;
+    font-size: 25px;
+    padding: 15px;
+}
+h4 {
+    color: white;
+    text-align: center;
+    font-size: 25px;
+    padding: 15px;
+}
+h5 {
+    text-align: center;
+}
+h6 {
+    color: white;
+    text-align: left;
+    font-size: 25px;
+}
+a {
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 3px;
+}
+/* This code is from W3schools -> How TO - Portfolio Gallery with Filtering */
+/* https://www.w3schools.com/howto/howto_js_portfolio_filter.asp */
+a:visited {
+    color: black;
+}
+
+/* mouse over link */
+a:hover {
+    color: white;
+}
+
+/* selected link */
+a:active {
+    color: gray;
+}
+button {
+    color: black;
+}
